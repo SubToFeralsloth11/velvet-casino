@@ -79,12 +79,12 @@ GAMES.push({
       busy = true; btn.disabled = true; res.textContent = ''; res.className = 'result';
       const out = [roll(), roll(), roll()];
       await Promise.all(strips.map((st, i) => new Promise((ok) => {
+        setTimeout(ok, (1.1 + i * 0.35) * 1000 + 50);
         const n = 24 + i * 8; const list = Array.from({ length: n }, roll); list[n - 2] = out[i];
         st.style.transition = 'none'; st.style.transform = 'translateY(0)';
         st.innerHTML = list.map(symEl).join(''); st.offsetHeight;
         st.style.transition = `transform ${1.1 + i * 0.35}s cubic-bezier(.2,.75,.25,1.03)`;
         st.style.transform = `translateY(-${(n - 3) * symH()}px)`;
-        st.addEventListener('transitionend', ok, { once: true });
       })));
       let mult = 0;
       if (out[0] === out[1] && out[1] === out[2]) mult = out[0].p;
